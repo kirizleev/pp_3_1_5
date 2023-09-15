@@ -10,15 +10,15 @@
     <th:block th:each="user : ${users}">
         <p th:text="${user}"></p>
         <br>
-        <a th:href="@{/edit_{id}(id=${user.getId()})}">Edit</a>
-        <form th:method="DELETE" th:action="@{/delete_{id}(id=${user.getId()})}">
+        <a th:href="@{/admin/edit_{id}(id=${user.getId()})}">Edit</a>
+        <form th:method="DELETE" th:action="@{/admin/delete_{id}(id=${user.getId()})}">
             <input type="submit" value="Delete">
         </form>
         <br>
     </th:block>
     <br/>
     <hr/>
-    <a href="/new">Create user</a>
+    <a href="/admin/new">Create user</a>
     <br>
     <a href="/logout">Logout</a>
 </div>

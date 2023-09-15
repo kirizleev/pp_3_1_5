@@ -1,9 +1,12 @@
 package ru.kata.spring.boot_security.demo.dao;
 
+import org.hibernate.Session;
+import org.hibernate.internal.SessionImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -54,8 +57,9 @@ public class UserDaoImp implements UserDao, UserDetailsService {
    }
 
    @Override
+   @Transactional
    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-      User user = entityManager.createQuery("FROM User WHERE email = '" + email + "'", User.class).getSingleResult();
+      User user = entityManager.createQuery("SELECT p FROM User p JOIN FETCH p.roles WHERE email = '" + email + "'", User.class).getSingleResult();
       if (user == null) {
          throw new UsernameNotFoundException("User not found");
       }
