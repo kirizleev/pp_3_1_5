@@ -30,6 +30,9 @@ public class User implements UserDetails {
    @ManyToMany(fetch = FetchType.LAZY)
    private Set<Role> roles;
 
+   @Transient
+   private String formRole;
+
    public User() {}
    
    public User(String firstName, String lastName, String email, String password) {
@@ -86,12 +89,19 @@ public class User implements UserDetails {
    }
 
    public Set<Role> getRoles() {
-
       return roles;
    }
 
    public void setRoles(Set<Role> roles) {
       this.roles = roles;
+   }
+
+   public String getFormRole() {
+      return formRole;
+   }
+
+   public void setFormRole(String formRole) {
+      this.formRole = formRole;
    }
 
    public User getUser() {
@@ -134,5 +144,13 @@ public class User implements UserDetails {
               ", password='" + password + '\'' +
               ", roles=" + roles +
               '}';
+   }
+
+   public String userRole() {
+      StringBuilder rolesStr = new StringBuilder();
+      for (Role role: getRoles()) {
+         rolesStr.append(role.getName()).append(" ");
+      }
+      return String.valueOf(rolesStr).replaceAll("ROLE_", "");
    }
 }

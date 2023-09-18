@@ -1,14 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <title>Spring Security Example</title>
+    <title>User Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
+<nav class="navbar navbar-dark bg-dark align-middle">
+    <span class="align-middle">
+        <span th:text="${user.getUsername()}" class="navbar-brand font-weight-bold align-middle mr-0">VALUE</span>
+        <span th:text="' with roles: ' + ${user.userRole()}" class="navbar-brand align-middle">VALUE</span>
+    </span>
+    <span class="align-text-top">
+        <a href="/logout" class="align-text-top nav-link text-muted">Logout</a>
+    </span>
+</nav>
+<div>
+    <div class="row mr-0" style="height:calc(100vh - 56px);">
+        <div class="col-2 mt-3 pr-0">
+            <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/admin}" th:text="Admin" type="button" class="btn btn-link btn-lg btn-block text-left">Primary</a>
+            <a th:href="@{/user}" th:text="User" type="button" class="btn btn-primary btn-lg btn-block text-left">Primary</a>
+        </div>
 
-<p th:text="${user.toString()}">VALUE</p>
-<br>
-<a href="/logout">Logout</a>
+        <div class="col-10 bg-light">
+            <div class="container-fluid mt-3">
+                <h1>User information-page</h1>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>
+                            <h5 class="mb-0">About user</h5>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="bg-white">
+                    <tr>
+                        <th scope="row">
+                            <table class="table-borderless table table-striped">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="font-weight-normal">
+                                    <td th:text="${user.getId()}">VALUE</td>
+                                    <td th:text="${user.getFirstName()}">VALUE</td>
+                                    <td th:text="${user.getLastName()}">VALUE</td>
+                                    <td th:text="${user.getEmail()}">VALUE</td>
+                                    <td th:text="${user.userRole()}">VALUE</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </th>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 </body>
 </html>

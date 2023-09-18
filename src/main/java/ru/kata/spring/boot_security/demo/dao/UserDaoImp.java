@@ -1,7 +1,5 @@
 package ru.kata.spring.boot_security.demo.dao;
 
-import org.hibernate.Session;
-import org.hibernate.internal.SessionImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -30,7 +28,11 @@ public class UserDaoImp implements UserDao, UserDetailsService {
 
    @Override
    public void add(User user) {
-      user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+      if (user.getFormRole().equals("ROLE_USER")) {
+         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+      } else {
+         user.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
+      }
       entityManager.persist(user);
    }
 
@@ -41,6 +43,11 @@ public class UserDaoImp implements UserDao, UserDetailsService {
 
    @Override
    public void edit(User user) {
+      if (user.getFormRole().equals("ROLE_USER")) {
+         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
+      } else {
+         user.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
+      }
       entityManager.merge(user);
    }
 
