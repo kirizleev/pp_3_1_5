@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,18 +7,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RegistrationService;
 import ru.kata.spring.boot_security.demo.service.UserService;
-import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-	private UserService userService;
+	private final UserService userService;
+	private final RegistrationService registrationService;
 
-	@Autowired
-	public void setUserService(UserServiceImp userService) {
+	public AdminController(UserService userService, RegistrationService registrationService) {
 		this.userService = userService;
+		this.registrationService = registrationService;
 	}
 
 	@GetMapping
@@ -36,7 +36,7 @@ public class AdminController {
 
 	@PostMapping("/new")
 	public String create(@ModelAttribute("user") User user) {
-		userService.add(user);
+		registrationService.register(user);
 		return "redirect:/admin";
 	}
 
