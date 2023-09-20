@@ -26,4 +26,19 @@ public class RegistrationService {
         user.setPassword(encodedPassword);
         userDaoImp.add(user);
     }
+
+    @Transactional
+    public void edit (User user) {
+        if (user.getPassword().isEmpty()) {
+            User dbUser = userDaoImp.getById(user.getId());
+            System.out.println(dbUser.getPassword());
+            user.setPassword(dbUser.getPassword());
+            System.out.println(user.getPassword());
+            userDaoImp.edit(user);
+        } else {
+            String encodedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(encodedPassword);
+            userDaoImp.edit(user);
+        }
+    }
 }

@@ -107,13 +107,13 @@
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label th:attr="for='editPassword'+${listUser.getId()}" class="mb-0 font-weight-bold">Password</label>
-                                                                        <input name="password" th:value="${listUser.getPassword()}" type="password" class="form-control w-50 p-3 mx-auto" th:attr="id='editPassword'+${listUser.getId()}" placeholder="Password">
+                                                                        <input name="password" type="password" class="form-control w-50 p-3 mx-auto" th:attr="id='editPassword'+${listUser.getId()}" placeholder="Password">
                                                                     </div>
                                                                     <div class="form-group">
                                                                         <label th:attr="for='editRole'+${listUser.getId()}" class="mb-0 font-weight-bold">Role</label>
                                                                         <select name="formRole" th:value="${listUser.getFormRole()}" multiple th:attr="id='editRole'+${listUser.getId()}" class="custom-select d-block w-50 p-3 mx-auto" style="height: 75px">
-                                                                            <option selected th:value="ROLE_USER" >USER</option>
-                                                                            <option th:value="ROLE_ADMIN">ADMIN</option>
+                                                                            <option th:value="ROLE_USER" >USER</option>
+                                                                            <option selected th:value="ROLE_ADMIN">ADMIN</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>

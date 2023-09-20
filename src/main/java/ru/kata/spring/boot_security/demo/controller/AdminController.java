@@ -42,7 +42,7 @@ public class AdminController {
 
 	@PatchMapping("/edit_{id}")
 	public String updateUser(@ModelAttribute("user") User user) {
-		userService.edit(user);
+		registrationService.edit(user);
 		return "redirect:/admin";
 	}
 
