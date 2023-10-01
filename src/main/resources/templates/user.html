@@ -7,8 +7,8 @@
 <body>
 <nav class="navbar navbar-dark bg-dark align-middle">
     <span class="align-middle">
-        <span th:text="${user.getUsername()}" class="navbar-brand font-weight-bold align-middle mr-0">VALUE</span>
-        <span th:text="' with roles: ' + ${user.userRole()}" class="navbar-brand align-middle">VALUE</span>
+        <span id="nameSpan" class="navbar-brand font-weight-bold align-middle mr-0"></span>
+        <span id="rolesSpan" class="navbar-brand align-middle"></span>
     </span>
     <span class="align-text-top">
         <a href="/logout" class="align-text-top nav-link text-muted">Logout</a>
@@ -47,11 +47,11 @@
                                 </thead>
                                 <tbody>
                                 <tr class="font-weight-normal">
-                                    <td th:text="${user.getId()}">VALUE</td>
-                                    <td th:text="${user.getFirstName()}">VALUE</td>
-                                    <td th:text="${user.getLastName()}">VALUE</td>
-                                    <td th:text="${user.getEmail()}">VALUE</td>
-                                    <td th:text="${user.userRole()}">VALUE</td>
+                                    <td id="userId"></td>
+                                    <td id="userFirstName"></td>
+                                    <td id="userLastName"></td>
+                                    <td id="userEmail"></td>
+                                    <td id="userRole"></td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -67,4 +67,6 @@
 
 
 </body>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="../static/user.js"></script>
 </html>

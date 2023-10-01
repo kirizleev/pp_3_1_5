@@ -30,9 +30,6 @@ public class User implements UserDetails {
    @ManyToMany(fetch = FetchType.LAZY)
    private Set<Role> roles;
 
-   @Transient
-   private String formRole;
-
    public User() {}
    
    public User(String firstName, String lastName, String email, String password) {
@@ -94,18 +91,6 @@ public class User implements UserDetails {
 
    public void setRoles(Set<Role> roles) {
       this.roles = roles;
-   }
-
-   public String getFormRole() {
-      return formRole;
-   }
-
-   public void setFormRole(String formRole) {
-      this.formRole = formRole;
-   }
-
-   public User getUser() {
-      return this;
    }
 
    @Override

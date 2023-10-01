@@ -3,7 +3,6 @@ package ru.kata.spring.boot_security.demo.dao;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +28,7 @@ public class UserDaoImp implements UserDao, UserDetailsService {
 
    @Override
    public void add(User user) {
-      if (user.getFormRole().equals("ROLE_USER")) {
+      if (user.getRoles().contains("1")) {
          user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
       } else {
          user.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
@@ -44,11 +43,6 @@ public class UserDaoImp implements UserDao, UserDetailsService {
 
    @Override
    public void edit(User user) {
-      if (user.getFormRole().equals("ROLE_USER")) {
-         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-      } else {
-         user.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
-      }
       entityManager.merge(user);
    }
 
