@@ -130,12 +130,4 @@ public class User implements UserDetails {
               ", roles=" + roles +
               '}';
    }
-
-   public String userRole() {
-      StringBuilder rolesStr = new StringBuilder();
-      for (Role role: getRoles()) {
-         rolesStr.append(role.getName()).append(" ");
-      }
-      return String.valueOf(rolesStr).replaceAll("ROLE_", "");
-   }
 }

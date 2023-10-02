@@ -7,13 +7,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -28,11 +26,6 @@ public class UserDaoImp implements UserDao, UserDetailsService {
 
    @Override
    public void add(User user) {
-      if (user.getRoles().contains("1")) {
-         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-      } else {
-         user.setRoles(Collections.singleton(new Role(2L, "ROLE_ADMIN")));
-      }
       entityManager.persist(user);
    }
 
@@ -66,5 +59,9 @@ public class UserDaoImp implements UserDao, UserDetailsService {
          throw new UsernameNotFoundException("User not found");
       }
       return user;
+   }
+
+   public boolean isUserExists (User user) {
+       return getById(user.getId()) == user;
    }
 }

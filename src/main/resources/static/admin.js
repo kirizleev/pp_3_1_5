@@ -1,3 +1,11 @@
+function getRoles(user) {
+    let roles = "";
+    for (const role of user.roles) {
+        roles += role.name.replace("ROLE_", "") + " "
+    }
+    return roles;
+}
+
 async function printUsers() {
     await fetch("http://localhost:8080/api/users")
         .then(resp => resp.json())
@@ -10,9 +18,18 @@ async function printUsers() {
                 userRow.append($("<td>").text(dataElement.firstName));
                 userRow.append($("<td>").text(dataElement.lastName));
                 userRow.append($("<td>").text(dataElement.email));
-                userRow.append($("<td>").text(dataElement.roles[0].name.replace("ROLE_", "")));
-                userRow.append($("<td>").append($("<button>").text("Edit").addClass("btn btn-info").attr("data-target", "#jssModal").attr("data-user", "edit_" + dataElement.id).attr("data-toggle", "modal")));
-                userRow.append($("<td>").append($("<button>").text("Delete").addClass("btn btn-danger").attr("data-target", "#jssModal").attr("data-user", "del_" + dataElement.id).attr("data-toggle", "modal")));
+
+                userRow.append($("<td>").text(getRoles(dataElement)));
+                userRow.append($("<td>").append($("<button>").text("Edit")
+                    .addClass("btn btn-info")
+                    .attr("data-target", "#jssModal")
+                    .attr("data-user", "edit_" + dataElement.id)
+                    .attr("data-toggle", "modal")));
+                userRow.append($("<td>").append($("<button>").text("Delete")
+                    .addClass("btn btn-danger")
+                    .attr("data-target", "#jssModal")
+                    .attr("data-user", "del_" + dataElement.id)
+                    .attr("data-toggle", "modal")));
 
                 $("#usersTableBody").append(userRow);
             }
@@ -227,6 +244,9 @@ $("#addUser").on("click", async function (e) {
 
     if (editFetch.ok) {
         await printUsers();
+        form.trigger("reset");
+        $("#new-user").removeClass("active");
+        $("#users_list").addClass("active");
     }
 })
 
@@ -235,7 +255,7 @@ async function userInfo() {
         .then(resp => resp.json())
         .then(function (user) {
             $("#nameSpan").text(user.email);
-            $("#rolesSpan").text(` with roles: ${user.roles[0].name.replace("ROLE_", "")}`);
+            $("#rolesSpan").text(` with roles: ${getRoles(user)}`);
         })
 }
 

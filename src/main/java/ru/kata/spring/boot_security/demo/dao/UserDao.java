@@ -12,4 +12,6 @@ public interface UserDao {
    User getById(Long id);
    List<User> listUsers();
    UserDetails loadUserByUsername(String username);
+
+   boolean isUserExists(User user);
 }

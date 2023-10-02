@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -16,11 +15,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class RESTController {
-
     private final UserService userService;
     private final RegistrationService registrationService;
 
-    @Autowired
     public RESTController(UserService userService, RegistrationService registrationService) {
         this.userService = userService;
         this.registrationService = registrationService;
